@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  smdrsleuth:
+    build: .
+    ports:
+      - "8000:8000"
+      - "5000:5000"
+      - "5173:5173"
+    volumes:
+      - ./backend:/app/backend
+      - ./web:/app/web
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
