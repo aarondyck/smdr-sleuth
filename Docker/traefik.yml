@@ -1,0 +1,30 @@
+# Traefik static configuration (YAML)
+# Replace <FRONTEND_IP>, <BACKEND_IP>, and <YOUR_DOMAIN> as needed
+
+entryPoints:
+  web:
+    address: ":80"
+  websecure:
+    address: ":443"
+
+http:
+  routers:
+    frontend:
+      rule: "PathPrefix(`/`)",
+      service: frontend
+      entryPoints:
+        - web
+    backend:
+      rule: "PathPrefix(`/api/`)"
+      service: backend
+      entryPoints:
+        - web
+  services:
+    frontend:
+      loadBalancer:
+        servers:
+          - url: "http://<FRONTEND_IP>:5173"
+    backend:
+      loadBalancer:
+        servers:
+          - url: "http://<BACKEND_IP>:8000"

@@ -1,0 +1,13 @@
+# Caddyfile for SMDR Sleuth
+# Replace <FRONTEND_IP>, <BACKEND_IP>, and <YOUR_DOMAIN> as needed
+
+<YOUR_DOMAIN> {
+    # Enable HTTPS automatically
+    tls <CERT_EMAIL>
+
+    # Frontend (React build)
+    reverse_proxy / http://<FRONTEND_IP>:5173
+
+    # Backend (FastAPI)
+    reverse_proxy /api/* http://<BACKEND_IP>:8000
+}
